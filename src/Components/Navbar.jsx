@@ -48,6 +48,17 @@ export default function NavbarComp() {
             cursor: 'pointer',
             transition: 'color 0.3s',
         },
+         navbar: {
+            '@media (maxWidth: 320px)': {
+              width: '100%',
+               boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Make navbar full width on screens smaller than 320px
+            },
+          },
+          linkContainer : {
+            '@media (maxWidth: 320px)': {
+              flexWrap: 'nowrap', // Prevent wrapping on smaller screens
+            },
+          },
     //     cartCount:{
     //         marginLeft:"10px",
     //     }
@@ -59,7 +70,7 @@ export default function NavbarComp() {
                 <div style={styled.headingContainer}>Flatlogic</div>
                 <div style={styled.linkContainer}>
                     <a href="/" style={styled.navLink}>Home</a>
-                    <a href="/about" style={styled.navLink}>Pages</a>
+                    <a href="/pages" style={styled.navLink}>Pages</a>
                     <a href="/services" style={styled.navLink}>Shops</a>
                     <a href="/contact" style={styled.navLink}>Blogs</a>
                 </div>

@@ -1,16 +1,19 @@
 import React from 'react';
-import ProductData from '../ProductList';
-import {useSelector} from "react-redux";
+import { useSelector } from 'react-redux';
 
 export default function ProductList() {
   const filteredProducts = useSelector(state => state?.product?.filterProduct);
-  console.log("state is:",filteredProducts)
-  const productList=useSelector(state => state?.product?.products)
+  console.log("state is:", filteredProducts);
+  const productList = useSelector(state => state?.product?.products);
+
   const styled = {
     Container: {
       padding: '20px',
       width: '100%',
       boxSizing: 'border-box',
+      '@media (max-width: 320px)': {
+        padding: '10px', // Adjust padding for smaller screens if needed
+      },
     },
     headerContainer: {
       display: 'flex',
@@ -33,20 +36,30 @@ export default function ProductList() {
       fontSize: '16px',
       boxSizing: 'border-box',
       width: 'auto',
-      maxWidth: '150px', 
+      maxWidth: '150px',
     },
     productList: {
       display: 'flex',
       flexWrap: 'wrap',
-      gap: '20px', 
+      gap: '20px',
     },
     productItem: {
-      width: 'calc(33.33% - 20px)', 
+      width: 'calc(33.33% - 20px)',
       padding: '10px',
       border: '1px solid #ccc',
       borderRadius: '4px',
       boxSizing: 'border-box',
-      textAlign: 'center', 
+      textAlign: 'center',
+      '@media (maxWidth: 768px)': {
+        width: 'calc(50% - 20px)',
+      },
+      '@media (maxWidth: 480px)': {
+        width: 'calc(100% - 20px)',
+      },
+      '@media (max-width: 320px)': {
+        width: '100%', 
+        padding: '5px', 
+      },
     },
     productName: {
       fontWeight: 'bold',
@@ -59,12 +72,15 @@ export default function ProductList() {
       width: '100%', // Ensure image takes full width of the product item
       borderRadius: '4px',
     },
+    categoryName: {
+      fontSize: '1em',
+    },
   };
 
   return (
     <div style={styled.Container}>
       <div style={styled.headerContainer}>
-        <div>Showing {filteredProducts?.length} of {productList?.length} products</div>
+        <div>Showing {filteredProducts.length} of {productList.length} products</div>
         <div style={styled.selectContainer}>
           <span>Sort by:</span>
           <select id="dropdown" style={styled.select}>
@@ -75,16 +91,13 @@ export default function ProductList() {
         </div>
       </div>
 
-
-
       <div style={styled.productList}>
         {filteredProducts.map((product) => (
           <div key={product.id} style={styled.productItem}>
             <div style={styled.productImageContainer}>
-            <img src={product.productImg}/>
+              <img src={product.productImg} alt={product.productName} style={{ width: '100%' }} />
             </div>
-           
-             <div>{product.categoryName}</div>
+            <div style={styled.categoryName}>{product.categoryName}</div>
             <div style={styled.productName}>{product.productName}</div>
             <div style={styled.productPrice}>{product.prize}</div>
           </div>
